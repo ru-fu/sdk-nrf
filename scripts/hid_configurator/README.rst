@@ -1,3 +1,5 @@
+:orphan:
+
 .. _configuration_channel:
 
 Configuration channel for nRF52 Desktop
@@ -59,4 +61,3 @@ Note:
 When using Python Launcher for Windows, `--user` installation option will not work, since DLL files will be copied to `user\AppData\Roaming\Python\PythonX` which is not searched for DLL libraries by default. You can either install without `--user` option or copy the DLL library next to the program being run. To uninstall all files, run
 
 	py -3 -m pip uninstall hid
-

@@ -1,59 +1,67 @@
 .. _shell_bt_nus_readme:
 
-Nordic UART Service (NUS) Shell transport
+Nordic UART Service (NUS) shell transport
 #########################################
 
-The BLE GATT Nordic UART Service shell transport allows to use shell remotely
-over Bluetooth using :ref:`nus_service_readme`.
+The BLE GATT Nordic UART Service shell transport allows to receive shell commands remotely over *Bluetooth*.
+It uses the :ref:`nus_service_readme`.
 
-The NUS Service shell is used in the :ref:`shell_bt_nus` sample.
+The NUS Service shell transport is used in the :ref:`shell_bt_nus` sample.
 
-Using NUS shell
-***************
+Setup
+*****
 
-Dedicated software is required on the host side (e.g. PC) to be able to use
-shell over Blueooth. Host application must implement complementary service
-:ref:`nus_c_readme`.
+Enable NUS shell transport in your application to be able to receive shell commands remotely.
+
+To send shell commands to an application that uses this module, you need specific software, comparable to a terminal (for example, PuTTY) for UART communication.
+
+
+Sending shell commands
+**********************
+
+The |NCS| provides two alternatives for sending shell commands from a host (for example, a PC) to the application that uses this module.
+`bt_nus_shell.py`_ is a Python script that requires a terminal and a second development board.
+`BLE Console`_ is a stand-alone application for Linux.
 
 bt_nus_shell.py
 ===============
 
-File `scripts/shell/bt_nus_shell.py` contains Python 2 cross platform example
-host application. Script is using additional Nordic Development Kit (PCA10040)
-as a Bluetooth central device. It is connecting to the specified device and
-forwards all NUS traffic to the network port. Terminal application, for example
-PuTTy can be used to connect to that port (default port is 8889) and use the
-Shell. Script takes following parameters:
+The script file ``scripts/shell/bt_nus_shell.py`` contains a cross-platform example host application, written in Python 2.
 
-	- `com` - port of Development Kit used by the script
-	- `snr` - Segger board ID
-	- `family` - Development kit chip family (e.g. NRF52)
-	- `name` - Advertising name of the device with NUS shell
+The script uses an additional Nordic Development Kit (for example, PCA10040) as a Bluetooth central device.
+It connects to the specified device and forwards all NUS traffic to the network port.
+You can then use a terminal application, for example PuTTY, to connect to that port (the default port is 8889) and use the shell.
 
-.. warning::
-	Script does not support reconnections so it is required to restart
-	`scripts/shell/bt_nus_shell.py` and terminal application after each
-	reconnection.
+The script requires the following parameters:
 
-Perform following steps to run Shell over Blueooth using `bt_nus_shell.py`
-script:
+* ``com`` - port of the development board used by the script
+* ``snr`` - SEGGER board ID
+* ``family`` - chip family of the development board (for example, NRF52)
+* ``name`` - advertising name of the device with the NUS shell
 
-- Connect Nordic Development Kit (e.g. PCA10040)
-- Start the `bt_nus_shell.py` script, for example::
+.. note::
+   The script does not support reconnection.
+   Therefore, you must restart both the script and the terminal application after each reconnection.
 
-	bt_nus_shell.py --snr 680834186 --name BT_NUS_shell --com COM115 --family NRF52
+Perform the following steps to use the ``bt_nus_shell.py`` script:
 
-- Open a terminal, for example PuTTY. Set the Connection Type to Raw and the
-  Destination Address to 127.0.0.1:8889.
-- Press Enter in the terminal. A console prompt is displayed.
+1. Connect a Nordic Development Kit (for example, PCA10040) to your PC.
+#. Start the ``bt_nus_shell.py`` script with the correct parameters, for example::
+
+       bt_nus_shell.py --snr 680834186 --name BT_NUS_shell --com COM115 --family NRF52
+#. Open a terminal, for example PuTTY.
+   Set the Connection Type to ``Raw`` and the  Destination Address to ``127.0.0.1:8889``.
+#. Press Enter in the terminal.
+   A console prompt is displayed.
+#. Enter the commands that you want to execute on the remote shell.
+
 
 BLE Console
 ***********
 
-:ref:`ble_console_readme` is a stand-alone Linux application which is using
-standard Bluetooth device (HCI dongle or built-in Bluetooth device) and BlueZ
-stack to communicate over Bluetooth with device running Shell over Nordic UART
-Service transport.
+The BLE Console is a stand-alone Linux application that uses a standard Bluetooth device (HCI dongle or built-in Bluetooth device) and the BlueZ stack to communicate over Bluetooth with the device that runs the NUS shell transport.
+
+See :ref:`ble_console_readme` for more information.
 
 API documentation
 *****************

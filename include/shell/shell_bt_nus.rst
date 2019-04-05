@@ -9,12 +9,13 @@ It uses the :ref:`nus_service_readme`.
 The NUS Service shell transport is used in the :ref:`shell_bt_nus` sample.
 
 Setup
-*****
+******
 
 Enable NUS shell transport in your application to be able to receive shell commands remotely.
 
 To send shell commands to an application that uses this module, you need specific software, comparable to a terminal (for example, PuTTY) for UART communication.
 
+.. _shell_bt_nus_host_tools:
 
 Sending shell commands
 **********************
@@ -43,6 +44,8 @@ The script requires the following parameters:
    The script does not support reconnection.
    Therefore, you must restart both the script and the terminal application after each reconnection.
 
+.. testing_start
+
 Perform the following steps to use the ``bt_nus_shell.py`` script:
 
 1. Connect a Nordic Development Kit (for example, PCA10040) to your PC.
@@ -55,6 +58,7 @@ Perform the following steps to use the ``bt_nus_shell.py`` script:
    A console prompt is displayed.
 #. Enter the commands that you want to execute on the remote shell.
 
+.. testing_end
 
 BLE Console
 ***********

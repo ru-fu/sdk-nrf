@@ -66,13 +66,16 @@ NRFXLIB_OUTPUT = os.path.abspath(os.environ["NRFXLIB_OUTPUT"])
 #
 # needs_sphinx = '1.0'
 
+sys.path.append(os.path.abspath('{}/doc/extensions'.format(NRF_BASE)))
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.intersphinx',
               'breathe',
               'sphinx.ext.ifconfig',
-              'sphinxcontrib.mscgen']
+              'sphinxcontrib.mscgen',
+              'eclipse']
 
 # Add any paths that contain templates here, relative to this directory.
 #templates_path = ['../_templates']
@@ -88,6 +91,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'nRF Connect SDK'
+eclipse_pluginname= 'nrf_connect_sdk'
 copyright = '2019, Nordic Semiconductor'
 author = 'Nordic Semiconductor'
 
@@ -146,7 +150,7 @@ html_last_updated_fmt = '%b %d, %Y'
 html_domain_indices = False
 
 # If false, no index is generated.
-html_use_index = True
+html_use_index = False
 
 # If true, the index is split into individual pages for each letter.
 html_split_index = True
@@ -165,7 +169,7 @@ html_show_license = True
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'zephyr': ('{}'.format(os.path.relpath(ZEPHYR_OUTPUT, NRF_OUTPUT)), os.path.join('{}'.format(os.path.relpath(ZEPHYR_OUTPUT, NRF_RST_SRC)), 'objects.inv')),
+    'zephyr': ("PLUGINS_ROOT/zephyr", os.path.join('{}'.format(os.path.relpath(ZEPHYR_OUTPUT, NRF_RST_SRC)), 'objects.inv')),
     'mcuboot': ('{}'.format(os.path.relpath(MCUBOOT_OUTPUT, NRF_OUTPUT)), os.path.join('{}'.format(os.path.relpath(MCUBOOT_OUTPUT, NRF_RST_SRC)), 'objects.inv')),
     'nrfxlib': ('{}'.format(os.path.relpath(NRFXLIB_OUTPUT, NRF_OUTPUT)), os.path.join('{}'.format(os.path.relpath(NRFXLIB_OUTPUT, NRF_RST_SRC)), 'objects.inv'))
 }
@@ -187,7 +191,3 @@ rst_epilog = """
 .. include:: /links.txt
 .. include:: /shortcuts.txt
 """
-
-def setup(app):
-   app.add_stylesheet("css/common.css")
-   app.add_stylesheet("css/nrf.css")

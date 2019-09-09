@@ -30,6 +30,8 @@ NRF_BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 # Add the 'extensions' directory to sys.path, to enable finding Sphinx
 # extensions within.
 sys.path.insert(0, os.path.join(ZEPHYR_BASE, 'doc', 'extensions'))
+sys.path.append(os.path.abspath('{}/doc/extensions'.format(NRF_BASE)))
+
 
 # Add the directory which contains the runners package as well,
 # for autodoc directives on runners.xyz.
@@ -67,7 +69,8 @@ extensions = [
     'zephyr.application',
     'zephyr.html_redirects',
     'only.eager_only',
-    'zephyr.link-roles'
+    'zephyr.link-roles',
+    'eclipse'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -88,6 +91,7 @@ master_doc = 'index'
 project = u'Zephyr Project'
 copyright = u'2015-2019 Zephyr Project members and individual contributors.'
 author = u'The Zephyr Project'
+eclipse_pluginname= 'zephyr'
 
 # The following code tries to extract the information by reading the Makefile,
 # when Sphinx is run directly (e.g. by Read the Docs).

@@ -1,0 +1,7 @@
+@import "../basic.css";
+
+@import url("https://infocenter.nordicsemi.com/topic/PRODUCT_PLUGIN/nordic_2x.css");
+
+div.related li.nav-item {
+ display:none;
+}

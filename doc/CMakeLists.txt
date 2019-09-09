@@ -41,7 +41,7 @@ set(MCUBOOT_BINARY_DIR ${CMAKE_BINARY_DIR}/mcuboot)
 set(NRFXLIB_BINARY_DIR ${CMAKE_BINARY_DIR}/nrfxlib)
 set(NRF_DOC_DIR ${NRF_BASE}/doc/nrf)
 set(MCUBOOT_DOC_DIR ${MCUBOOT_BASE}/docs)
-set(HTML_DIR ${CMAKE_BINARY_DIR}/html)
+set(HTML_DIR ${CMAKE_BINARY_DIR}/eclipse)
 # Create the combined HTML output folder
 file(MAKE_DIRECTORY ${HTML_DIR})
 
@@ -179,7 +179,7 @@ set(NRF_SPHINX_BUILD_HTML_COMMAND
   NRF_RST_SRC=${NRF_RST_OUT}/doc/nrf
   MCUBOOT_OUTPUT=${HTML_DIR}/mcuboot
   NRFXLIB_OUTPUT=${HTML_DIR}/nrfxlib
-  ${SPHINXBUILD} -w ${NRF_SPHINX_LOG} -N -b html ${NRF_SPHINXOPTS} ${NRF_RST_OUT}/doc/nrf ${HTML_DIR}/nrf
+  ${SPHINXBUILD} -w ${NRF_SPHINX_LOG} -N -b eclipse ${NRF_SPHINXOPTS} ${NRF_RST_OUT}/doc/nrf ${HTML_DIR}/nrf
 )
 
 add_custom_target(
@@ -188,7 +188,7 @@ add_custom_target(
   # Merge the Doxygen and Sphinx logs into a single file
   COMMAND ${CMAKE_COMMAND} -P ${ZEPHYR_BASE}/cmake/util/fmerge.cmake ${NRF_DOC_LOG} ${NRF_DOXY_LOG} ${NRF_SPHINX_LOG}
   # Copy root index file
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/static/html/index.html ${HTML_DIR}
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_LIST_DIR}/static/eclipse/index.html ${HTML_DIR}
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
 add_dependencies(nrf-html nrf-doxy nrf-content nrf-kconfig)
@@ -242,7 +242,7 @@ add_custom_target(
   mcuboot-html
   COMMAND ${CMAKE_COMMAND} -E env
   NRF_BASE=${NRF_BASE}
-  ${SPHINXBUILD} -w ${MCUBOOT_SPHINX_LOG} -N -b html ${MCUBOOT_SPHINXOPTS} ${MCUBOOT_RST_OUT}/doc/mcuboot ${HTML_DIR}/mcuboot
+  ${SPHINXBUILD} -w ${MCUBOOT_SPHINX_LOG} -N -b eclipse ${MCUBOOT_SPHINXOPTS} ${MCUBOOT_RST_OUT}/doc/mcuboot ${HTML_DIR}/mcuboot
 
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )
@@ -331,7 +331,7 @@ add_custom_target(
   COMMAND ${CMAKE_COMMAND} -E env
   NRF_BASE=${NRF_BASE}
   NRFXLIB_BUILD=${NRFXLIB_BINARY_DIR}
-  ${SPHINXBUILD} -w ${NRFXLIB_SPHINX_LOG} -N -b html ${NRFXLIB_SPHINXOPTS} ${NRFXLIB_RST_OUT} ${HTML_DIR}/nrfxlib
+  ${SPHINXBUILD} -w ${NRFXLIB_SPHINX_LOG} -N -b eclipse ${NRFXLIB_SPHINXOPTS} ${NRFXLIB_RST_OUT} ${HTML_DIR}/nrfxlib
 
   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 )

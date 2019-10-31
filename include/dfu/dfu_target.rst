@@ -13,10 +13,7 @@ The result of this call can then be given as input to the :cpp:func:`dfu_target_
 
 
 .. note::
-   After starting a DFU procedure for a given target, it is not supported to
-   initialize a new DFU procedure with a different firmware file for the same
-   target until either the DFU procedure has completed successfully, or the
-   device has been restarted.
+   After starting a DFU procedure for a given target, you cannot initialize a new DFU procedure with a different firmware file for the same target until the DFU procedure has completed successfully or the device has been restarted.
 
 
 Supported DFU targets
@@ -29,10 +26,22 @@ The following sections describe the DFU targets that are currently supported.
 MCUboot style upgrades
 ======================
 
-This type of firmware upgrade writes the data given to the :cpp:func:`dfu_target_write` function into the secondary slot specified by MCUboot's flash partitions.
+This type of firmware upgrade can be used for application updates and updates to the upgradable bootloader.
+It writes the data given to the :cpp:func:`dfu_target_write` function into the secondary slot specified by MCUboot's flash partitions.
 
-When the complete transfer is done, call the :cpp:func:`dfu_target_done` function to mark the firmware that is stored in the secondary slot as ready to be booted.
+.. note::
+   For bootloader upgrades, the new firmware will be placed in one of two locations (slot 0 or slot 1) as described in :ref:`upgradable_bootloader`.
+   Therefore, the image that you provide to the library must contain two variants, one compiled against each location.
+   If you use :doc:`mcuboot:index` to create the image, the generated zip file has the correct format.
+
+
+When the complete transfer is done, call the :cpp:func:`dfu_target_done` function to copy the image to the corresponding partition.
+For application updates, the new image replaces the existing application.
+For bootloader updates, the library checks which of the bootloader partitions is currently used and copies the suitable variant of the new image to the other bootloader partition.
+
+After copying, the library marks the firmware as ready to be booted.
 On the next reboot, the device will run the new firmware.
+
 
 Modem firmware upgrades
 =======================

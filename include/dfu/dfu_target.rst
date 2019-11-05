@@ -31,13 +31,13 @@ It writes the data given to the :cpp:func:`dfu_target_write` function into the s
 
 .. note::
    For bootloader upgrades, the new firmware will be placed in one of two locations (slot 0 or slot 1) as described in :ref:`upgradable_bootloader`.
-   Therefore, the image that you provide to the library must contain two variants, one compiled against each location.
-   If you use :doc:`mcuboot:index` to create the image, the generated zip file has the correct format.
+   Therefore, you must ensure that the firmware downloaded is linked against  the correct location.
+   This is handled automatically by :ref:`lib_fota_download` library.
 
 
 When the complete transfer is done, call the :cpp:func:`dfu_target_done` function to copy the image to the corresponding partition.
 For application updates, the new image replaces the existing application.
-For bootloader updates, the library checks which of the bootloader partitions is currently used and copies the suitable variant of the new image to the other bootloader partition.
+For bootloader updates, the new image will be written to the non active slot partition (S0 or S1).
 
 After copying, the library marks the firmware as ready to be booted.
 On the next reboot, the device will run the new firmware.

@@ -26,6 +26,9 @@
 extern "C" {
 #endif
 
+/** Temporary Key length. */
+#define NFC_NDEF_LE_OOB_REC_TK_LEN 16
+
 /**
  * @brief LE role options.
  */
@@ -74,10 +77,21 @@ struct nfc_ndef_le_oob_rec_payload_desc {
 	bt_addr_le_t *addr;
 	enum nfc_ndef_le_oob_rec_le_role *le_role;
 	struct bt_le_oob_sc_data *le_sc_data;
+	u8_t *tk_value;
 	u16_t *appearance;
 	u8_t *flags;
 	const char *local_name;
 };
+
+/**
+ * @brief Generate OOB Temporary Key which is used for pairing.
+ *
+ * @param[out] Pointer to 16 byte long buffer for TK value.
+ *
+ * @retval 0 If the operation was successful.
+ *         Otherwise, a (negative) error code is returned.
+ */
+int nfc_ndef_le_oob_rec_tk_generate(u8_t *buff);
 
 /**
  * @brief Construct the payload for a Bluetooth Carrier

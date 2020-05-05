@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <errno.h>
+#include <drivers/entropy.h>
 #include <nfc/ndef/le_oob_rec.h>
 
 #define AD_TYPE_FIELD_SIZE 1UL
@@ -84,6 +85,22 @@ static int le_role_encode(enum nfc_ndef_le_oob_rec_le_role le_role, u8_t **buff,
 	return 0;
 }
 
+int nfc_ndef_le_oob_rec_tk_generate(u8_t *buff)
+{
+	struct device *dev;
+
+	if (!buff) {
+		return -ENOMEM;
+	}
+
+	dev = device_get_binding(CONFIG_ENTROPY_NAME);
+	if (!dev) {
+		return -EFAULT;
+	}
+
+	return entropy_get_entropy(dev, buff, NFC_NDEF_LE_OOB_REC_TK_LEN);
+}
+
 int nfc_ndef_le_oob_rec_payload_constructor(
 	const struct nfc_ndef_le_oob_rec_payload_desc *payload_desc, u8_t *buff,
 	u32_t *len)
@@ -103,6 +120,19 @@ int nfc_ndef_le_oob_rec_payload_constructor(
 	err = le_role_encode(*payload_desc->le_role, &buff, &rem_size);
 	if (err) {
 		return err;
+	}
+
+	if (payload_desc->tk_value) {
+		struct bt_data tk;
+
+		tk.type = BT_DATA_SM_TK_VALUE;
+		tk.data_len = NFC_NDEF_LE_OOB_REC_TK_LEN;
+		tk.data = payload_desc->tk_value;
+
+		err = bt_data_encode(&tk, &buff, &rem_size);
+		if (err) {
+			return err;
+		}
 	}
 
 	if (payload_desc->le_sc_data) {

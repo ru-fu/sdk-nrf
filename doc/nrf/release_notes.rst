@@ -21,3 +21,4 @@ See the release notes for information about specific |NCS| releases.
    doc/release-notes-0.4.0
    doc/release-notes-0.3.0
    doc/release-notes-0.1.0
+   doc_changes

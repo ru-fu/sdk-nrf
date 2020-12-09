@@ -873,6 +873,118 @@ Test command
 
 The test command is not supported.
 
+TCP whitelist #XTCPWHTLST
+=========================
+
+The ``#XTCPWHTLST`` command allows you to set or clear a whiltelist for the TCP server.
+If whitelist is set, only IPv4 afddress(es) in the list is allowed for connection.
+
+Set command
+-----------
+
+The set command allows you to set or clear a whiltelist for the TCP server.
+
+Syntax
+~~~~~~
+
+::
+
+   #XWHITELIST=<op>[,<ip_addr1>[,<ip_addr2>[,...]]]
+
+* The ``<op>`` parameter can accept one of the following values:
+
+  * ``0`` - clear whitelist and set whitelist mode off
+  * ``1`` - set whitelist and set whitelist mode on
+
+* The ``<ip_addr#>`` value is a string.
+  It indicates the IPv4 address of allowed TCP/TLS client.
+  Max 6 IPv4 addresses could be specified in the list.
+
+Examples
+~~~~~~~~
+
+::
+
+   at#xtcpwhtlst=1,"192.168.1.1"
+   OK
+   at#xtcpwhtlst?
+   #XTCPWHTLST: 1,"192.168.1.1"
+   OK
+   at#xtcpwhtlst=1,"192.168.1.1","192.168.1.2","192.168.1.3","192.168.1.4","192.168.1.5","192.168.1.6"
+   OK
+   at#xtcpwhtlst?
+   #XTCPWHTLST: 1,"192.168.1.1","192.168.1.2","192.168.1.3","192.168.1.4","192.168.1.5","192.168.1.6"
+   OK
+   at#xtcpwhtlst=0
+   OK
+   at#xtcpwhtlst?
+   #XTCPWHTLST: 0
+   OK
+   at#xtcpwhtlst=1
+   OK
+   at#xtcpwhtlst?
+   #XTCPWHTLST: 1
+   OK
+
+Read command
+------------
+
+The read command allows you to check whitelist settings.
+
+Syntax
+~~~~~~
+
+::
+
+   #XTCPWHTLST?
+
+Response syntax
+~~~~~~~~~~~~~~~
+
+::
+
+   #XTCPWHTLST: <whitelist_mode>[,<ip_addr1>[,<ip_addr2>[,...]]]
+
+* The ``<whitelist_mode>`` value can assume one of the following values:
+
+  * ``0`` - Disabled
+  * ``1`` - Enabled
+
+Examples
+~~~~~~~~
+
+::
+
+   See above
+
+Test command
+------------
+
+The test command tests the existence of the command and provides information about the type of its subparameters.
+
+Syntax
+~~~~~~
+
+::
+
+   #XTCPWHTLST=?
+
+Response syntax
+~~~~~~~~~~~~~~~
+
+::
+
+   #XTCPSVR: (list of op value),",<IP_ADDR#1>[,<IP_ADDR#2>[,...]]
+
+Examples
+~~~~~~~~
+
+::
+
+   at#xtcpwhtlst=?
+   #XTCPWHTLST: (0, 1),<IP_ADDR#1>[,<IP_ADDR#2>[,...]]
+   OK
+
 TCP server #XTCPSVR
 ===================
 

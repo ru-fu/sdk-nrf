@@ -876,13 +876,13 @@ The test command is not supported.
 TCP whitelist #XTCPWHTLST
 =========================
 
-The ``#XTCPWHTLST`` command allows you to set or clear a whiltelist for the TCP server.
-If whitelist is set, only IPv4 afddress(es) in the list is allowed for connection.
+The ``#XTCPWHTLST`` command allows you to set or clear a whitelist for the TCP server.
+If the whitelist is set, only IPv4 addresses on the list are allowed for connection.
 
 Set command
 -----------
 
-The set command allows you to set or clear a whiltelist for the TCP server.
+The set command allows you to set or clear a whitelist for the TCP server.
 
 Syntax
 ~~~~~~
@@ -893,37 +893,34 @@ Syntax
 
 * The ``<op>`` parameter can accept one of the following values:
 
-  * ``0`` - clear whitelist and set whitelist mode off
-  * ``1`` - set whitelist and set whitelist mode on
+  * ``0`` - clear whitelist and turn whitelist mode off
+  * ``1`` - set whitelist and turn whitelist mode on
 
 * The ``<ip_addr#>`` value is a string.
-  It indicates the IPv4 address of allowed TCP/TLS client.
-  Max 6 IPv4 addresses could be specified in the list.
+  It indicates the IPv4 address of an allowed TCP/TLS client.
+  The maximum number of IPv4 addresses that can be specified in the list is six.
 
 Examples
 ~~~~~~~~
 
 ::
 
-   at#xtcpwhtlst=1,"192.168.1.1"
+   AT#XTCPWHTLST=1,"192.168.1.1"
    OK
-   at#xtcpwhtlst?
-   #XTCPWHTLST: 1,"192.168.1.1"
+
+::
+
+   AT#XTCPWHTLST=1,"192.168.1.1","192.168.1.2","192.168.1.3","192.168.1.4","192.168.1.5","192.168.1.6"
    OK
-   at#xtcpwhtlst=1,"192.168.1.1","192.168.1.2","192.168.1.3","192.168.1.4","192.168.1.5","192.168.1.6"
+
+::
+
+   AT#XTCPWHTLST=0
    OK
-   at#xtcpwhtlst?
-   #XTCPWHTLST: 1,"192.168.1.1","192.168.1.2","192.168.1.3","192.168.1.4","192.168.1.5","192.168.1.6"
-   OK
-   at#xtcpwhtlst=0
-   OK
-   at#xtcpwhtlst?
-   #XTCPWHTLST: 0
-   OK
-   at#xtcpwhtlst=1
-   OK
-   at#xtcpwhtlst?
-   #XTCPWHTLST: 1
+
+::
+
+   AT#XTCPWHTLST=1
    OK
 
 Read command
@@ -955,7 +952,28 @@ Examples
 
 ::
 
-   See above
+   AT#XTCPWHTLST?
+   #XTCPWHTLST: 1,"192.168.1.1"
+   OK
+
+::
+
+   AT#XTCPWHTLST?
+   #XTCPWHTLST: 1,"192.168.1.1","192.168.1.2","192.168.1.3","192.168.1.4","192.168.1.5","192.168.1.6"
+   OK
+
+::
+
+   AT#XTCPWHTLST?
+   #XTCPWHTLST: 0
+   OK
+
+::
+
+   AT#XTCPWHTLST?
+   #XTCPWHTLST: 1
+   OK
+
 
 Test command
 ------------
@@ -981,9 +999,10 @@ Examples
 
 ::
 
-   at#xtcpwhtlst=?
+   AT#XTCPWHTLST=?
    #XTCPWHTLST: (0, 1),<IP_ADDR#1>[,<IP_ADDR#2>[,...]]
    OK
+
 
 TCP server #XTCPSVR
 ===================

@@ -155,6 +155,11 @@ Check and configure the following configuration options for the sample:
 
    This option configures the application to accept AT commands ending with carriage return and line feed.
 
+.. option:: CONFIG_SLM_WHITELIST_SIZE - Size of whitelist to filter incoming connections
+
+   This option specifies the number of IPv4 addresses that you can add to a whitelist for TCP connections.
+   If the whitelist is set, only connections from the specified addresses are allowed.
+
 .. option:: CONFIG_SLM_TCP_POLL_TIME - Poll time-out in seconds for TCP connection
 
    This option specifies the poll time-out for the TCP connection, in seconds.

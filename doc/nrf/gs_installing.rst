@@ -29,6 +29,10 @@ Installing the required tools
 
 The installation process is different depending on your operating system.
 
+.. |p| raw:: html .. force a blank line in HTML output (blank lines needed here)
+
+   <p></p>
+
 .. tabs::
 
    .. group-tab:: Windows
@@ -36,7 +40,13 @@ The installation process is different depending on your operating system.
       The recommended way for installing the required tools on Windows is to use Chocolatey, a package manager for Windows.
       Chocolatey installs the tools so that you can use them from a Windows command prompt.
 
-      To install the required tools, follow the :ref:`install-required-tools` section for Windows in Zephyr's :ref:`zephyr:getting_started`.
+      To install the required tools, follow these instructions (included from Zephyr).
+
+      .. ncs-include:: getting_started/index.rst
+         :docset: zephyr
+         :auto-dedent:
+         :start-after: using WSL when getting started.
+         :end-before: _get_the_code:
 
    .. group-tab:: Linux
 

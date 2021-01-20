@@ -85,6 +85,7 @@ extensions = ['sphinx.ext.intersphinx',
               'interbreathe',
               'table_from_rows',
               'options_from_kconfig',
+              'ncs_include',
               'sphinx.ext.ifconfig',
               'sphinxcontrib.mscgen',
               'sphinx_tabs.tabs',
@@ -204,6 +205,10 @@ breathe_domain_by_extension = {
     "c": "c",
 }
 breathe_separate_member_pages = True
+
+ncs_include_mapping = {
+    'zephyr': '{}'.format(os.path.join(ZEPHYR_BASE, 'doc')),
+}
 
 # Qualifiers to a function are causing Sphinx/Breathe to warn about
 # Error when parsing function declaration and more.  This is a list

@@ -87,6 +87,13 @@ To set up the toolchain, complete the following steps:
    We recommend to use the folder ``c:\gnuarmemb`` on Windows and ``~/gnuarmemb`` on Linux or macOS.
 
    Make sure that the folder name does not contain any spaces or special characters.
+#. Follow this guide to:
+
+   .. ncs-include:: getting_started/index.rst
+         :docset: zephyr
+         :auto-dedent:
+         :start-after: Follow this guide to:
+         :end-before: _host_setup
 #. If you want to build and program applications from the command line, define the environment variables for the GNU Arm Embedded toolchain.
    Depending on your operating system:
 

@@ -263,7 +263,7 @@ See the :ref:`aws_fota_sample` sample for a full implementation using AWS.
 Board controller
 ****************
 
-The nRF9160 DK contains an nRF52840 SoC that is used to route some of the nRF9160 SiP pins to different components on the DK, such as the Arduino pin headers, LEDs, and buttons.
+The nRF9160 DK contains an nRF52840 SoC that is used to route some of the nRF9160 SiP pins to different components on the DK, such as LEDs and buttons, and to specific pins of the nRF52840 SoC itself.
 For a complete list of all the routing options available, see the `nRF9160 DK board control section in the nRF9160 DK User Guide`_.
 
 The nRF52840 SoC on the DK comes preprogrammed with a firmware.
@@ -272,8 +272,8 @@ To program the HEX file, use nrfjprog (which is part of the `nRF Command Line To
 
 If you want to route some pins differently from what is done in the preprogrammed firmware, program the :ref:`zephyr:hello_world` sample instead of the preprogrammed firmware.
 Configure the sample (located under ``samples/hello_world``) for the nrf9160dk_nrf52840 board.
-All configuration options can be found under *Board configuration* in menuconfig.
-See :ref:`zephyr:nrf9160dk_nrf52840` for detailed information about the board.
+The routing options can be changed as needed by enabling and disabling the corresponding devicetree nodes for that board.
+See the section **Board controller firmware** in :ref:`zephyr:nrf9160dk_nrf52840` for detailed information.
 
 .. _nrf9160_ug_drivs_libs_samples:
 

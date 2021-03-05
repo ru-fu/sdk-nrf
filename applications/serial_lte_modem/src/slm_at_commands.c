@@ -38,6 +38,9 @@
 #if defined(CONFIG_SLM_HTTPC)
 #include "slm_at_httpc.h"
 #endif
+#if defined(CONFIG_SLM_TWI)
+#include "slm_at_twi.h"
+#endif
 
 LOG_MODULE_REGISTER(slm_at, CONFIG_SLM_LOG_LEVEL);
 
@@ -355,6 +358,13 @@ int handle_at_httpc_connect(enum at_cmd_type cmd_type);
 int handle_at_httpc_request(enum at_cmd_type cmd_type);
 #endif
 
+#if defined(CONFIG_SLM_TWI)
+int handle_at_twi_open(enum at_cmd_type cmd_type);
+int handle_at_twi_write(enum at_cmd_type cmd_type);
+int handle_at_twi_read(enum at_cmd_type cmd_type);
+int handle_at_twi_write_read(enum at_cmd_type cmd_type);
+#endif
+
 static struct slm_at_cmd {
 	char *string;
 	slm_at_handler_t handler;
@@ -422,6 +432,13 @@ static struct slm_at_cmd {
 #if defined(CONFIG_SLM_HTTPC)
 	{"AT#XHTTPCCON", handle_at_httpc_connect},
 	{"AT#XHTTPCREQ", handle_at_httpc_request},
+#endif
+
+#if defined(CONFIG_SLM_TWI)
+	{"AT#XTWIOP", handle_at_twi_open},
+	{"AT#XTWIW", handle_at_twi_write},
+	{"AT#XTWIR", handle_at_twi_read},
+	{"AT#XTWIWR", handle_at_twi_write_read},
 #endif
 };
 
@@ -535,6 +552,13 @@ int slm_at_init(void)
 		return -EFAULT;
 	}
 #endif
+#if defined(CONFIG_SLM_TWI)
+	err = slm_at_twi_init();
+	if (err) {
+		LOG_ERR("TWI could not be initialized: %d", err);
+		return -EFAULT;
+	}
+#endif
 
 	return err;
 }
@@ -591,6 +615,12 @@ void slm_at_uninit(void)
 	err = slm_at_httpc_uninit();
 	if (err) {
 		LOG_WRN("HTTP could not be uninitialized: %d", err);
+	}
+#endif
+#if defined(CONFIG_SLM_TWI)
+	err = slm_at_twi_uninit();
+	if (err) {
+		LOG_ERR("TWI could not be uninit: %d", err);
 	}
 #endif
 }

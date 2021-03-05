@@ -38,3 +38,4 @@ AT responds to all commands with a final response.
    MQTT_AT_commands
    TCPIP_AT_commands
    HTTPC_AT_commands
+   TWI_AT_commands

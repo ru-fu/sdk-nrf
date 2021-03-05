@@ -453,7 +453,6 @@ static void cmd_send(struct k_work *work)
 		rsp_send(ERROR_STR, sizeof(ERROR_STR) - 1);
 		goto done;
 	}
-
 	/* Send to modem */
 	err = at_cmd_write(at_buf, at_buf, sizeof(at_buf), &state);
 	if (err < 0) {
@@ -714,7 +713,6 @@ int slm_at_host_init(void)
 	if (err) {
 		return -EFAULT;
 	}
-
 	k_work_init(&raw_send_work, raw_send);
 	k_work_init(&cmd_send_work, cmd_send);
 	k_delayed_work_init(&uart_recovery_work, uart_recovery);

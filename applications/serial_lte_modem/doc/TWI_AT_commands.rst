@@ -7,17 +7,17 @@ TWI AT commands
    :local:
    :depth: 2
 
-The following commands list contains TWI related AT commands.
+The following commands list contains AT commands related to the two-wire interface (TWI).
 
 Open TWI instance #XTWIOP
 =========================
 
-The ``#XTWIOP`` command opens TWI instance.
+The ``#XTWIOP`` command opens a TWI instance.
 
 Set command
 -----------
 
-The set command allows you to open TWI instance.
+The set command allows you to open a TWI instance.
 
 Syntax
 ~~~~~~
@@ -28,10 +28,18 @@ Syntax
 
 The ``<index>`` parameter accepts the following integer values:
 
-* ``0`` - i2c0
-* ``1`` - i2c1
-* ``2`` - i2c2
-* ``3`` - i2c3
+* ``0`` - Use TWI0 (``i2c0``).
+* ``1`` - Use TWI1 (``i2c1``).
+* ``2`` - Use TWI2 (``i2c2``).
+* ``3`` - Use TWI3 (``i2c3``).
+
+See :ref:`zephyr:nordic_nrf_twi`.
+
+
+Response syntax
+~~~~~~~~~~~~~~~
+
+There is no response.
 
 Example
 ~~~~~~~
@@ -68,17 +76,26 @@ Syntax
 
    #XTWIW=<index>,<dev_addr>,<data>
 
-The ``<index>`` parameter accepts the following integer values:
+* The ``<index>`` parameter accepts the following integer values:
 
-* ``0`` - i2c0
-* ``1`` - i2c1
-* ``2`` - i2c2
-* ``3`` - i2c3
+  * ``0`` - Use TWI0 (``i2c0``).
+  * ``1`` - Use TWI1 (``i2c1``).
+  * ``2`` - Use TWI2 (``i2c2``).
+  * ``3`` - Use TWI3 (``i2c3``).
 
-The ``<dev_addr>`` parameter is a hexadecimal string.
-  It represents the slave device address to write. The maximum size is 2-digit (e.g. "DE" for 0xDE)
-The ``<data>`` parameter is a hexadecimal string.
-  It represents the data to be written to slave device. The maximum size is 254-digit. (e.g. "DEADBEEF" for 0xDEADBEEF)
+  See :ref:`zephyr:nordic_nrf_twi`.
+
+* The ``<dev_addr>`` parameter is a hexadecimal string.
+  It represents the slave device address to write to.
+  The maximum length is 2 characters (for example, "DE" for 0xDE).
+* The ``<data>`` parameter is a hexadecimal string.
+  It represents the data to be written to slave device.
+  The maximum length is 254 characters (for example, "DEADBEEF" for 0xDEADBEEF).
+
+Response syntax
+~~~~~~~~~~~~~~~
+
+There is no response.
 
 Example
 ~~~~~~~
@@ -115,17 +132,21 @@ Syntax
 
    #XTWIR=<index>,<dev_addr>,<num_read>
 
-The ``<index>`` parameter accepts the following integer values:
+* The ``<index>`` parameter accepts the following integer values:
 
-* ``0`` - i2c0
-* ``1`` - i2c1
-* ``2`` - i2c2
-* ``3`` - i2c3
+  * ``0`` - Use TWI0 (``i2c0``).
+  * ``1`` - Use TWI1 (``i2c1``).
+  * ``2`` - Use TWI2 (``i2c2``).
+  * ``3`` - Use TWI3 (``i2c3``).
 
-The ``<dev_addr>`` parameter is a hexadecimal string.
-  It represents the slave device address to read. The maximum size is 2-digit (e.g. "DE" for 0xDE)
-The ``<num_read>`` parameter is an unsigned 8-bit integer.
-  It represents the number of data to be read from slave device. The available range is from 0 to 255.
+  See :ref:`zephyr:nordic_nrf_twi`.
+
+* The ``<dev_addr>`` parameter is a hexadecimal string.
+  It represents the slave device address to read from.
+  The maximum length is 2 characters (for example, "DE" for 0xDE).
+* The ``<num_read>`` parameter is an unsigned 8-bit integer.
+  It represents the amount of data to read from the slave device.
+  The available range is from 0 to 255 bytes.
 
 Response syntax
 ~~~~~~~~~~~~~~~
@@ -135,10 +156,10 @@ Response syntax
    #XTWIR: <size>
    <data>
 
-The ``<size>`` value is an unsigned integer.
-  It represents the actual number of the bytes read from slave device.
-The ``<data>`` parameter is a hexadecimal string.
-  It represents the data read from slave device.
+* The ``<size>`` value is an unsigned integer.
+  It represents the actual number of bytes read from the slave device.
+* The ``<data>`` parameter is a hexadecimal string.
+  It represents the data read from the slave device.
 
 Example
 ~~~~~~~
@@ -161,15 +182,15 @@ Test command
 
 The test command is not supported.
 
-Write data to then read data from an TWI device #XTWIWR
-=======================================================
+Write data and read from TWI device #XTWIWR
+===========================================
 
-The ``#XTWIWR`` command writes to then read data from a TWI slave device.
+The ``#XTWIWR`` command writes data to a TWI slave device and then reads data from the device.
 
 Set command
 -----------
 
-The set command allows you to write data to then read data from a TWI slave device.
+The set command allows you to first write data to a TWI slave device and then read that data back.
 
 Syntax
 ~~~~~~
@@ -178,19 +199,24 @@ Syntax
 
    #XTWIW=<index>,<dev_addr>,<data>,<num_read>
 
-The ``<index>`` parameter accepts the following integer values:
+* The ``<index>`` parameter accepts the following integer values:
 
-* ``0`` - i2c0
-* ``1`` - i2c1
-* ``2`` - i2c2
-* ``3`` - i2c3
+  * ``0`` - Use TWI0 (``i2c0``).
+  * ``1`` - Use TWI1 (``i2c1``).
+  * ``2`` - Use TWI2 (``i2c2``).
+  * ``3`` - Use TWI3 (``i2c3``).
 
-The ``<dev_addr>`` parameter is a hexadecimal string.
-  It represents the slave device address to write. The maximum size is 2-digit (e.g. "DE" for 0xDE)
-The ``<data>`` parameter is a hexadecimal string.
-  It represents the data to be written to slave device. The maximum size is 254-digit. (e.g. "DEADBEEF" for 0xDEADBEEF)
-The ``<num_read>`` parameter is an unsigned 8-bit integer.
-  It represents the number of data to be read from slave device. The available range is from 0 to 255.
+  See :ref:`zephyr:nordic_nrf_twi`.
+
+* The ``<dev_addr>`` parameter is a hexadecimal string.
+  It represents the slave device address to write to.
+  The maximum length is 2 characters (for example, "DE" for 0xDE).
+* The ``<data>`` parameter is a hexadecimal string.
+  It represents the data to be written to slave device.
+  The maximum length is 254 characters (for example, "DEADBEEF" for 0xDEADBEEF).
+* The ``<num_read>`` parameter is an unsigned 8-bit integer.
+  It represents the amount of data to read from the slave device.
+  The available range is from 0 to 255 bytes.
 
 Response syntax
 ~~~~~~~~~~~~~~~
@@ -200,10 +226,10 @@ Response syntax
    #XTWIWR: <size>
    <data>
 
-The ``<size>`` value is an unsigned integer.
-  It represents the actual number of the bytes read from slave device.
-The ``<data>`` parameter is a hexadecimal string.
-  It represents the data read from slave device.
+* The ``<size>`` value is an unsigned integer.
+  It represents the actual number of bytes read from the slave device.
+* The ``<data>`` parameter is a hexadecimal string.
+  It represents the data read from the slave device.
 
 Example
 ~~~~~~~

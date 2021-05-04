@@ -216,3 +216,22 @@ To test the version drop-down locally, complete the following steps:
 #. Access http://localhost:8000/latest/index.html with your browser to see the documentation.
 
 To add other versions of the documentation to your local documentation output, build the versions from a tagged release and rename the :file:`html` folder to the respective version (for example, |release_number_tt|).
+
+Filtering expected warnings
+***************************
+
+There are some known issues with Sphinx/Breathe that generate Sphinx warnings
+even though the input is valid C code. While these issues are being considered
+for fixing Zephyr provides a Sphinx extension that allows to filter them out
+based on a set of regular expressions. The extension is named
+``zephyr.warnings_filter`` and is located at
+``${ZEPHYR_BASE}/doc/_extensions/zephyr/warnings_filter.py``. It can be enabled
+on docsets that generate warnings caused by known issues. Refer to the
+documentation found in the extension sources for details on how to use it.
+
+The most common warning reported by Sphinx/Breathe is related to duplicate C
+declarations. This warning may be caused by different Sphinx/Breathe issues:
+
+- Multiple declarations of the same object are not supported
+- Different objects (e.g. a struct and a function) can not share the same name
+- Nested elements (e.g. in a struct or union) can not share the same name

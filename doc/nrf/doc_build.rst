@@ -217,21 +217,15 @@ To test the version drop-down locally, complete the following steps:
 
 To add other versions of the documentation to your local documentation output, build the versions from a tagged release and rename the :file:`html` folder to the respective version (for example, |release_number_tt|).
 
-Filtering expected warnings
-***************************
+Dealing with warnings
+*********************
 
-There are some known issues with Sphinx/Breathe that generate Sphinx warnings
-even though the input is valid C code. While these issues are being considered
-for fixing Zephyr provides a Sphinx extension that allows to filter them out
-based on a set of regular expressions. The extension is named
-``zephyr.warnings_filter`` and is located at
-``${ZEPHYR_BASE}/doc/_extensions/zephyr/warnings_filter.py``. It can be enabled
-on docsets that generate warnings caused by known issues. Refer to the
-documentation found in the extension sources for details on how to use it.
+When building the documentation, all warnings are regarded as errors, so they will make the documentation build fail.
 
-The most common warning reported by Sphinx/Breathe is related to duplicate C
-declarations. This warning may be caused by different Sphinx/Breathe issues:
+However, there are some known issues with Sphinx and Breathe that generate Sphinx warnings even though the input is valid C code.
+To deal with such unavoidable warnings, Zephyr provides the Sphinx extension ``zephyr.warnings_filter`` that filters out warnings based on a set of regular expressions.
+You can find the extension at :file:`ncs/zephyr/doc/_extensions/zephyr/warnings_filter.py`.
 
-- Multiple declarations of the same object are not supported
-- Different objects (e.g. a struct and a function) can not share the same name
-- Nested elements (e.g. in a struct or union) can not share the same name
+The configuration file that defines the expected warnings for the sdk-nrf documentation is located at :file:`ncs/nrf/doc/nrf/known-warnings.txt`.
+It contains regular expressions to filter out warnings related to duplicate C declarations.
+These warnings are caused by different objects (for example, a struct and a function or nested elements) sharing the same name.
